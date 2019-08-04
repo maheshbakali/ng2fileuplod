@@ -1,0 +1,79 @@
+
+  <div class="container">
+ 
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <a class="navbar-brand" href>Angular File Upload</a>
+        </div>
+    </div>
+ 
+    <div class="row">
+ 
+        <div class="col-md-4">
+ 
+            <h3>Select files</h3> 
+           
+            <div ng2FileDrop
+                 [ngClass]="{'another-file-over-class': hasAnotherDropZoneOver}"
+                 (fileOver)="fileOverAnother($event)"
+                 [uploader]="uploader"
+                 class="well my-drop-zone"
+                 (click)="fileInput.click()">
+                 <h6>Drag and drop file(s) here or click to select</h6>              
+
+                <input type="file" #fileInput ng2FileSelect [uploader]="uploader" [multiple]="isMultiple" style="display:none" /><br/>
+            </div>            
+        </div>
+ 
+        <div class="col-md-8" style="margin-bottom: 40px">
+ 
+            <h3>Upload files</h3>
+            
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="30%">Name</th>                    
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of uploader.queue">
+                    <td><strong>{{ item?.file?.name }}</strong></td>                    
+                    <td nowrap>
+                        <!-- <button type="button" class="btn btn-success btn-xs"
+                                (click)="item.upload()" [disabled]="item.isReady || item.isUploading || item.isSuccess">
+                            <span class="glyphicon glyphicon-upload"></span> Upload
+                        </button> -->
+                        <!-- <button type="button" class="btn btn-warning btn-xs"
+                                (click)="item.cancel()" [disabled]="!item.isUploading">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Cancel
+                        </button> -->
+                        <button type="button" class="btn btn-danger btn-xs"
+                                (click)="item.remove()">
+                            <span class="glyphicon glyphicon-trash"></span> Remove
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+ 
+            <div>                
+                <button type="button" class="btn btn-success btn-s"
+                        (click)="uploadSubmit()" [disabled]="!uploader.getNotUploadedItems().length">
+                    <span class="glyphicon glyphicon-upload"></span> Upload file(s)
+                </button>
+                <!-- <button type="button" class="btn btn-warning btn-s"
+                        (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+                </button> -->
+                <button type="button" class="btn btn-danger btn-s"
+                        (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                    <span class="glyphicon glyphicon-trash"></span> Remove file(s)
+                </button>
+            </div>
+ 
+        </div>
+ 
+    </div>
+ 
+</div>
